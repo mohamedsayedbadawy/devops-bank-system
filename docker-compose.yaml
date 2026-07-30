@@ -1,0 +1,67 @@
+version: "3.9"
+
+
+services:
+  frontend: 
+    image: frontend-image:v2
+    ports:
+      - "7070:80"
+
+    restart: always
+    volumes:
+      - frontend-volume:/root/frontend-files/ 
+    networks: 
+      - frontend-network
+    depends_on:
+      - backend 
+
+  backend:
+    image: backend-image:v2
+    ports:
+      - "5000:5000"
+    volumes:
+      - backend-volume:/root/backend-app/
+    networks:
+      - frontend-network
+      - backend-network
+    depends_on:
+      - database
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      DB_HOST: database
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+  database: 
+    image: database-image:v2
+    ports:
+      - "3306:3306"
+    volumes: 
+      - database-volume:/root/batabase-files/
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - backend-network
+volumes:
+  frontend-volume:
+  backend-volume:
+  database-volume:
+networks:
+  frontend-network:
+    driver: bridge
+    ipam:
+       config:
+         - gateway: 192.168.30.1
+           subnet: 192.168.30.0/24
+  backend-network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - gateway: 192.168.40.1
+          subnet: 192.168.40.0/24
+    

@@ -1,0 +1,7 @@
+FROM nginx:alpine
+COPY ./nginx.conf /etc/nginx/
+
+COPY  ./frontend-files/*  /usr/share/nginx/html/
+
+EXPOSE 80
+
