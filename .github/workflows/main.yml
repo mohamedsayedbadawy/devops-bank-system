@@ -1,19 +1,24 @@
 name: docker-compose-workflow
-on: 
+
+on:
   push:
-    paths:
-      - "/*"
-      - "backend/*"
-      - "front/*"
-      - "database/*"
+    branches:
+      - main
+
 jobs:
-  compose-down:
+  deploy:
     runs-on: rocky
+
     defaults:
       run:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
+
     steps:
-      - name: down current docker compose background
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Stop current containers
         run: docker compose down
-      - name: docker compose up new one
-        run: docker compose up -d 
+
+      - name: Start updated containers
+        run: docker compose up -d --build
