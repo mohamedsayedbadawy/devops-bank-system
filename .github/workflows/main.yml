@@ -9,9 +9,10 @@ on:
 jobs:
   compose-down:
     runs-on: rocky
+    defaults:
+      run:
+        working-directory: /home/badawy/bank-system-containerized-v2
     steps:
-      - name: move to the docker compose dir
-        run: cd /home/badawy/bank-system-containerized-v2
       - name: down current docker compose background
         run: docker compose down
       - name: docker compose up new one
