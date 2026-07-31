@@ -3,85 +3,170 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ledger &mdash; Bank Management</title>
+<title>Bank Management System</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
 <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <div class="ledger-frame">
 
-  <header class="masthead">
-    <span class="masthead__mark">§</span>
-    <h1 class="masthead__title">Ledger</h1>
-    <span class="masthead__tag">a plain account of your money</span>
-  </header>
+    <header class="masthead">
+        <span class="masthead__mark">🏦</span>
+        <h1 class="masthead__title">Bank Management System</h1>
+        <span class="masthead__tag">
+            Secure Banking Demo • Flask • MySQL • Docker
+        </span>
+    </header>
 
-  <main class="card" id="app">
+    <main class="card" id="app">
 
-    <!-- Tabs -->
-    <nav class="tabs" id="tabs">
-      <button class="tabs__btn is-active" data-view="login">Sign in</button>
-      <button class="tabs__btn" data-view="register">Open account</button>
-    </nav>
+        <!-- Tabs -->
+        <nav class="tabs" id="tabs">
+            <button class="tabs__btn is-active" data-view="login">
+                Login
+            </button>
 
-    <!-- Status line -->
-    <p class="status" id="status" role="status" aria-live="polite"></p>
+            <button class="tabs__btn" data-view="register">
+                Create Account
+            </button>
+        </nav>
 
-    <!-- Login view -->
-    <section class="view is-active" id="view-login">
-      <form id="form-login" novalidate>
-        <label class="field">
-          <span class="field__label">Username</span>
-          <input class="field__input" type="text" name="username" autocomplete="username" required />
-        </label>
-        <label class="field">
-          <span class="field__label">Password</span>
-          <input class="field__input" type="password" name="password" autocomplete="current-password" required />
-        </label>
-        <button class="btn" type="submit">Sign in</button>
-      </form>
-    </section>
+        <!-- Status -->
+        <p class="status" id="status" role="status" aria-live="polite"></p>
 
-    <!-- Register view -->
-    <section class="view" id="view-register">
-      <form id="form-register" novalidate>
-        <label class="field">
-          <span class="field__label">Choose a username</span>
-          <input class="field__input" type="text" name="username" autocomplete="username" required />
-        </label>
-        <label class="field">
-          <span class="field__label">Choose a password</span>
-          <input class="field__input" type="password" name="password" autocomplete="new-password" required minlength="4" />
-        </label>
-        <label class="field">
-          <span class="field__label">Opening balance</span>
-          <input class="field__input field__input--num" type="number" name="balance" min="0" step="0.01" value="0" required />
-        </label>
-        <button class="btn" type="submit">Open account</button>
-      </form>
-    </section>
+        <!-- Login -->
+        <section class="view is-active" id="view-login">
+            <form id="form-login" novalidate>
 
-    <!-- Balance view -->
-    <section class="view" id="view-balance">
-      <div class="balance">
-        <span class="balance__label">Balance for <span id="balance-username">&mdash;</span></span>
-        <span class="balance__figure"><span class="balance__currency">$</span><span id="balance-amount">0.00</span></span>
-        <span class="balance__asof">as of this session</span>
-      </div>
-      <button class="btn btn--ghost" id="btn-refresh">Refresh</button>
-      <button class="btn btn--ghost" id="btn-signout">Sign out</button>
-    </section>
+                <label class="field">
+                    <span class="field__label">Username</span>
+                    <input
+                        class="field__input"
+                        type="text"
+                        name="username"
+                        autocomplete="username"
+                        required
+                    />
+                </label>
 
-  </main>
+                <label class="field">
+                    <span class="field__label">Password</span>
+                    <input
+                        class="field__input"
+                        type="password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                    />
+                </label>
 
-  <footer class="foot-rule">
-    <span>bank_system</span><span class="foot-rule__dot">&middot;</span><span>users</span>
-  </footer>
+                <button class="btn" type="submit">
+                    Login
+                </button>
+
+            </form>
+        </section>
+
+        <!-- Register -->
+        <section class="view" id="view-register">
+
+            <form id="form-register" novalidate>
+
+                <label class="field">
+                    <span class="field__label">Username</span>
+                    <input
+                        class="field__input"
+                        type="text"
+                        name="username"
+                        autocomplete="username"
+                        required
+                    />
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Password</span>
+                    <input
+                        class="field__input"
+                        type="password"
+                        name="password"
+                        autocomplete="new-password"
+                        minlength="4"
+                        required
+                    />
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Opening Balance</span>
+                    <input
+                        class="field__input field__input--num"
+                        type="number"
+                        name="balance"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        required
+                    />
+                </label>
+
+                <button class="btn" type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Balance -->
+        <section class="view" id="view-balance">
+
+            <div class="balance">
+
+                <span class="balance__label">
+                    Welcome,
+                    <strong id="balance-username">&mdash;</strong>
+                </span>
+
+                <span class="balance__figure">
+                    <span class="balance__currency">$</span>
+                    <span id="balance-amount">0.00</span>
+                </span>
+
+                <span class="balance__asof">
+                    Current Account Balance
+                </span>
+
+            </div>
+
+            <button class="btn btn--ghost" id="btn-refresh">
+                Refresh Balance
+            </button>
+
+            <button class="btn btn--ghost" id="btn-signout">
+                Logout
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer class="foot-rule">
+        <span>Bank Management System</span>
+        <span class="foot-rule__dot">&bull;</span>
+        <span>Flask API</span>
+        <span class="foot-rule__dot">&bull;</span>
+        <span>MySQL</span>
+        <span class="foot-rule__dot">&bull;</span>
+        <span>Docker</span>
+    </footer>
 
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
