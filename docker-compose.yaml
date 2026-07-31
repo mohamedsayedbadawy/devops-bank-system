@@ -3,7 +3,8 @@ version: "3.9"
 
 services:
   frontend: 
-    image: frontend-image:v2
+    image: frontend-image:v3
+    build: ./frontend
     ports:
       - "7070:80"
 
@@ -16,7 +17,8 @@ services:
       - backend 
 
   backend:
-    image: backend-image:v2
+    image: backend-image:v3
+    build: ./backend
     ports:
       - "5000:5000"
     volumes:
@@ -35,7 +37,8 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
   database: 
-    image: database-image:v2
+    image: database-image:v3
+    build: ./database
     ports:
       - "3306:3306"
     volumes: 
