@@ -11,7 +11,7 @@ jobs:
     runs-on: rocky
     defaults:
       run:
-        working-directory: /home/badawy/bank-system-containerized-v2
+        working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
     steps:
       - name: down current docker compose background
         run: docker compose down
