@@ -14,10 +14,8 @@ jobs:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Stop current containers
-        run: docker compose restart
-
-      
+        run: docker compose down
+      - name: run new containers 
+        run: docker compose up -d 
