@@ -16,4 +16,4 @@ jobs:
       - name: down current docker compose background
         run: docker compose down
       - name: docker compose up new one
-        run: docekr compose up -d 
+        run: docker compose up -d 
