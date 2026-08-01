@@ -11,7 +11,7 @@ on:
       - "*"
 jobs:
   updata-database:
-    if: contains(github.event.head_commit.modified, 'database/') || contains(github.event.head_commit.added, 'database/')
+    if: contains(toJson(github.event.head_commit.modified), 'database/') || contains(toJson(github.event.head_commit.added), 'database/')
 
     runs-on: rocky
     defaults:
@@ -19,30 +19,28 @@ jobs:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
     steps:
       - name: build new database 
-        run: docker build database
+        run: docker compose build database
       - name: run new database
         run: docker up -d  --no-deps database
   updata-backend:
-    if: contains(github.event.head_commit.modified, 'backend/') || contains(github.event.head_commit.added, 'backend/')
-
+    if: contains(toJson(github.event.head_commit.modified), 'backend/') || contains(toJson(github.event.head_commit.added), 'backend/')
     runs-on: rocky
     defaults:
       run:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
     steps:
       - name: build new backend
-        run: docker build backend
+        run: docker compose build backend
       - name: run new backend
         run: docker up -d  --no-deps backend
   updata-frontend:
-    if: contains(github.event.head_commit.modified, 'frontend/') || contains(github.event.head_commit.added, 'frontend/')
-
+    if: contains(toJson(github.event.head_commit.modified), 'frontend/') || contains(toJson(github.event.head_commit.added), 'frontend/')
     runs-on: rocky
     defaults:
       run:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
     steps:
       - name: build new frontend 
-        run: docker build frontend
+        run: docker compose build frontend
       - name: run new frontend
         run: docker up -d  --no-deps frontend      
