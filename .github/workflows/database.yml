@@ -1,0 +1,25 @@
+name: docker-compose-database
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "database/*"
+  
+
+jobs:
+  
+  updata-database:
+    runs-on: rocky
+    defaults:
+      run:
+        working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
+
+    steps:
+      - name: Build new database
+        run: docker compose build database
+
+      - name: Run new database
+        run: docker compose up -d --no-deps database
+
