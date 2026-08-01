@@ -4,18 +4,45 @@ on:
   push:
     branches:
       - main
-
+    paths: 
+      - "backend/*"
+      - "frontend/*" 
+      - "database/*"
+      - "*"
 jobs:
-  deploy:
-    runs-on: rocky
+  updata-database:
+    if: contains(github.event.head_commit.modified, 'database/') || contains(github.event.head_commit.added, 'database/')
 
+    runs-on: rocky
     defaults:
       run:
         working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
-
     steps:
+      - name: build new database 
+        run: docker build database
+      - name: run new database
+        run: docker up -d  --no-deps database
+  updata-backend:
+    if: contains(github.event.head_commit.modified, 'backend/') || contains(github.event.head_commit.added, 'backend/')
 
-      - name: Stop current containers
-        run: docker compose down
-      - name: run new containers 
-        run: docker compose up -d --build 
+    runs-on: rocky
+    defaults:
+      run:
+        working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
+    steps:
+      - name: build new backend
+        run: docker build backend
+      - name: run new backend
+        run: docker up -d  --no-deps backend
+  updata-frontend:
+    if: contains(github.event.head_commit.modified, 'frontend/') || contains(github.event.head_commit.added, 'frontend/')
+
+    runs-on: rocky
+    defaults:
+      run:
+        working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
+    steps:
+      - name: build new frontend 
+        run: docker build frontend
+      - name: run new frontend
+        run: docker up -d  --no-deps frontend      
