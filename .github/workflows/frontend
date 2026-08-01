@@ -1,0 +1,25 @@
+name: docker-compose-frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/*"
+  
+
+jobs:
+  
+  updata-frontend:
+    runs-on: rocky
+    defaults:
+      run:
+        working-directory: /home/badawy/bank-system-containerized-v2/devops-bank-system
+
+    steps:
+      - name: Build new frontend
+        run: docker compose build frontend
+
+      - name: Run new frontend
+        run: docker compose up -d --no-deps frontend
+
