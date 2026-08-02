@@ -20,7 +20,7 @@ A modern, multi-tier, containerized microservices-style banking web application 
 +--------------------------------------------------------------------+
 |                         BACKEND CONTAINER                          |
 |  • Python 3.11 Slim / Flask API                                    |
-|  • Bcrypt Password Hashing & Input Validation                      |
+|  • Bcrypt Password Hashing \& Input Validation                      |
 |  • Exposes endpoints: /register, /login, /balance/<user>, /health  |
 +--------------------------------------------------------------------+
        | (backend-network: 192.168.40.0/24 - Internal Only)
@@ -35,7 +35,7 @@ A modern, multi-tier, containerized microservices-style banking web application 
 ---
 🛠️ Technology Stack
 Tier	Technology	Description
-Frontend	Nginx Alpine, HTML5, Vanilla JS, CSS3	Web server & reverse proxy. Proxies `/api/*` to the Flask backend.
+Frontend	Nginx Alpine, HTML5, Vanilla JS, CSS3	Web server & reverse proxy. Proxies `/api/\*` to the Flask backend.
 Backend	Python 3.11, Flask, Bcrypt, `mysql-connector-python`	RESTful API handling authentication, security, and financial queries.
 Database	MySQL 8 (Oracle Linux 9)	Relational database pre-initialized with tables & seed records.
 Containerization	Docker, Docker Compose	Multi-container orchestration, persistent storage, and custom bridge networking.
@@ -48,20 +48,20 @@ devops-bank-system-main/
 ├── docker-compose.yaml        # Docker Compose service orchestration blueprint
 ├── README.md                  # Comprehensive project documentation
 ├── backend/                   # Flask API Backend service
-│   ├── app.py                 # Main Flask application & REST API routes
+│   ├── app.py                 # Main Flask application \& REST API routes
 │   ├── db.py                  # MySQL database connection helper module
 │   ├── dockerfile             # Docker build definition for Flask container
 │   └── requirements.txt       # Python dependencies (Flask, bcrypt, mysql-connector)
 ├── frontend/                  # Web Frontend service
 │   ├── dockerfile             # Docker build definition for Nginx container
-│   ├── nginx.conf             # Nginx reverse proxy & static file server configuration
+│   ├── nginx.conf             # Nginx reverse proxy \& static file server configuration
 │   └── frontend-files/        # Web client assets
-│       ├── app.js             # API integration & UI state logic
+│       ├── app.js             # API integration \& UI state logic
 │       ├── index.html         # User interface layout
-│       └── style.css          # Styling & visual layout
+│       └── style.css          # Styling \& visual layout
 ├── database/                  # Database service
 │   ├── dockerfile             # Custom MySQL container build definition
-│   └── init.sql               # Database schema creation & seeding script
+│   └── init.sql               # Database schema creation \& seeding script
 └── .github/
     └── workflows/             # GitHub Actions CI/CD pipelines
         ├── backend.yml        # CI/CD pipeline for backend updates
@@ -80,7 +80,7 @@ Retrieves live account balances securely.
 Health Check (`GET /api/health`):
 Simple health probe for monitoring API uptime.
 Nginx Reverse Proxy & Route Abstraction:
-Masks internal container ports by forwarding `/api/*` requests seamlessly to the backend.
+Masks internal container ports by forwarding `/api/\*` requests seamlessly to the backend.
 Network Isolation:
 Database resides on an internal network (`backend-network`) inaccessible from external networks or the frontend container directly.
 ---
@@ -92,8 +92,8 @@ Docker Compose (v2.0+)
 1. Environment Configuration
 The repository includes a default `.env` file for quick local deployment:
 ```env
-MYSQL_ROOT_PASSWORD=admin
-MYSQL_DATABASE=bank_system
+MYSQL\_ROOT\_PASSWORD=admin
+MYSQL\_DATABASE=bank\_system
 ```
 (Modify these values for production environments).
 2. Launching the Application
